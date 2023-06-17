@@ -1,0 +1,16 @@
+﻿<Window x:Class="ПрактикаСемаков.Выбор_4"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ПрактикаСемаков"
+        mc:Ignorable="d"
+        Title="Выбор_4" Height="225" Width="598">
+    <Grid>
+        <Button Content="Сформировать отчеты" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="101" Width="196" Click="Button_Click"/>
+        <Button Content="История входа" HorizontalAlignment="Left" Margin="211,10,0,0" VerticalAlignment="Top" Height="101" Width="145"/>
+        <Button Content="Данные о расходных материалах" HorizontalAlignment="Left" Margin="361,10,0,0" VerticalAlignment="Top" Height="101" Width="222"/>
+        <Button Content="Назад" HorizontalAlignment="Left" Margin="240,150,0,0" VerticalAlignment="Top" Height="34" Width="88"/>
+
+    </Grid>
+</Window>

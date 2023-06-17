@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MEFFLABModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ВидМатериала">
+    <Key>
+      <PropertyRef Name="Id_видаМатериала" />
+    </Key>
+    <Property Name="Id_видаМатериала" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Штрихкод" Relationship="Self.FK_Штрихкод_ВидМатериала" FromRole="ВидМатериала" ToRole="Штрихкод" />
+  </EntityType>
+  <EntityType Name="Заказ">
+    <Key>
+      <PropertyRef Name="Id_заказа" />
+    </Key>
+    <Property Name="Id_заказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Штрихкода" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Штрихкод" Relationship="Self.FK_Заказ_Штрихкод" FromRole="Заказ" ToRole="Штрихкод" />
+    <NavigationProperty Name="Клиенты" Relationship="Self.FK_Клиенты_Заказ" FromRole="Заказ" ToRole="Клиенты" />
+  </EntityType>
+  <EntityType Name="Клиенты">
+    <Key>
+      <PropertyRef Name="Id_Клиента" />
+    </Key>
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Id_Клиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Заказа" Type="Int32" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Клиенты_Заказ" FromRole="Клиенты" ToRole="Заказ" />
+  </EntityType>
+  <EntityType Name="Отдел">
+    <Key>
+      <PropertyRef Name="Id_отдела" />
+    </Key>
+    <Property Name="Id_отдела" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Отдел" FromRole="Отдел" ToRole="Сотрудники" />
+  </EntityType>
+  <EntityType Name="Сотрудники">
+    <Key>
+      <PropertyRef Name="ID_Сотрудника" />
+    </Key>
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Почта" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_Сотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_отдела" Type="Int32" Nullable="false" />
+    <Property Name="заблокирован_до" Type="Time" Precision="7" />
+    <NavigationProperty Name="Отдел" Relationship="Self.FK_Сотрудники_Отдел" FromRole="Сотрудники" ToRole="Отдел" />
+  </EntityType>
+  <EntityType Name="Услуга">
+    <Key>
+      <PropertyRef Name="Id_Услуги" />
+    </Key>
+    <Property Name="Id_Услуги" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Штрихкод" Relationship="Self.FK_Штрихкод_Услуга" FromRole="Услуга" ToRole="Штрихкод" />
+    <Property Name="Наименование1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Штрихкод">
+    <Key>
+      <PropertyRef Name="Id_Штрихкода" />
+    </Key>
+    <Property Name="Id_Штрихкода" Type="Int32" Nullable="false" />
+    <Property Name="ДатаСоздания" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ВидМатериала" Type="Int32" Nullable="false" />
+    <Property Name="Id_услуги" Type="Int32" Nullable="false" />
+    <Property Name="Id_биоматериала" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ВидМатериала1" Relationship="Self.FK_Штрихкод_ВидМатериала" FromRole="Штрихкод" ToRole="ВидМатериала" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Штрихкод" FromRole="Штрихкод" ToRole="Заказ" />
+    <NavigationProperty Name="Услуга" Relationship="Self.FK_Штрихкод_Услуга" FromRole="Штрихкод" ToRole="Услуга" />
+    <NavigationProperty Name="Биоматериал" Relationship="MEFFLABModel.FK_Штрихкод_Биоматериал" FromRole="Штрихкод" ToRole="Биоматериал" />
+  </EntityType>
+  <Association Name="FK_Штрихкод_ВидМатериала">
+    <End Role="ВидМатериала" Type="Self.ВидМатериала" Multiplicity="1" />
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ВидМатериала">
+        <PropertyRef Name="Id_видаМатериала" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="ВидМатериала" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заказ_Штрихкод">
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Штрихкод">
+        <PropertyRef Name="Id_Штрихкода" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="Id_Штрихкода" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Клиенты_Заказ">
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="0..1" />
+    <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Заказ">
+        <PropertyRef Name="Id_заказа" />
+      </Principal>
+      <Dependent Role="Клиенты">
+        <PropertyRef Name="Id_Заказа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудники_Отдел">
+    <End Role="Отдел" Type="Self.Отдел" Multiplicity="1" />
+    <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Отдел">
+        <PropertyRef Name="Id_отдела" />
+      </Principal>
+      <Dependent Role="Сотрудники">
+        <PropertyRef Name="Id_отдела" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Штрихкод_Услуга">
+    <End Role="Услуга" Type="Self.Услуга" Multiplicity="1" />
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Услуга">
+        <PropertyRef Name="Id_Услуги" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="Id_услуги" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="M1EFFLABEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="ВидМатериала" EntityType="Self.ВидМатериала" />
+    <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+    <EntitySet Name="Клиенты" EntityType="Self.Клиенты" />
+    <EntitySet Name="Отдел" EntityType="Self.Отдел" />
+    <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+    <EntitySet Name="Услуга" EntityType="Self.Услуга" />
+    <EntitySet Name="Штрихкод" EntityType="Self.Штрихкод" />
+    <AssociationSet Name="FK_Штрихкод_ВидМатериала" Association="Self.FK_Штрихкод_ВидМатериала">
+      <End Role="ВидМатериала" EntitySet="ВидМатериала" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заказ_Штрихкод" Association="Self.FK_Заказ_Штрихкод">
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Клиенты_Заказ" Association="Self.FK_Клиенты_Заказ">
+      <End Role="Заказ" EntitySet="Заказ" />
+      <End Role="Клиенты" EntitySet="Клиенты" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудники_Отдел" Association="Self.FK_Сотрудники_Отдел">
+      <End Role="Отдел" EntitySet="Отдел" />
+      <End Role="Сотрудники" EntitySet="Сотрудники" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Штрихкод_Услуга" Association="Self.FK_Штрихкод_Услуга">
+      <End Role="Услуга" EntitySet="Услуга" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MEFFLABModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MEFFLABModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Биоматериал" EntityType="MEFFLABModel.Биоматериал" />
+    <AssociationSet Name="FK_Штрихкод_Биоматериал" Association="MEFFLABModel.FK_Штрихкод_Биоматериал">
+      <End Role="Биоматериал" EntitySet="Биоматериал" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Биоматериал">
+    <Key>
+      <PropertyRef Name="Id_материала" />
+    </Key>
+    <Property Name="Id_материала" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Штрихкод" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Штрихкод1" Relationship="MEFFLABModel.FK_Штрихкод_Биоматериал" FromRole="Биоматериал" ToRole="Штрихкод" />
+  </EntityType>
+  <Association Name="FK_Штрихкод_Биоматериал">
+    <End Type="MEFFLABModel.Биоматериал" Role="Биоматериал" Multiplicity="1" />
+    <End Type="MEFFLABModel.Штрихкод" Role="Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Биоматериал">
+        <PropertyRef Name="Id_материала" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="Id_биоматериала" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,225 @@
+﻿<Window x:Class="ПрактикаСемаков.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ПрактикаСемаков"
+        mc:Ignorable="d"
+        Title="Создание клиента" Height="342" Width="462">
+    <Grid Margin="0,0,-302,-109">
+        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Margin="294,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="32" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Margin="294,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="32" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="294,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="32" TextChanged="TextBox_TextChanged"/>
+        <Label
+            Content="Фамилия"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+                          Background="#ff64ccf1"
+               Foreground="White"
+            FontSize="20"
+            FontFamily="Segoe UI"
+            FontWeight="Bold"
+            Margin="42,27,0,0"
+            Width="212"
+            Height="52">
+            <Label.Template>
+                <ControlTemplate>
+                    <Border
+                        CornerRadius="10"
+                        Padding="2"
+                        BorderThickness="0"
+                        Background="{TemplateBinding Background}">
+                        <Label
+                            Content=" Фамилия"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}" />
+                    </Border>
+                </ControlTemplate>
+            </Label.Template>
+        </Label>
+        <Label
+            Content="Имя"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+               Background="#ff64ccf1"
+               Foreground="White"
+            FontSize="20"
+            FontFamily="Segoe UI"
+            FontWeight="Bold"
+            Margin="42,92,0,0"
+            Width="212"
+            Height="52">
+            <Label.Template>
+                <ControlTemplate>
+                    <Border
+                        CornerRadius="10"
+                        Padding="2"
+                        BorderThickness="0"
+                        Background="{TemplateBinding Background}">
+                        <Label
+                            Content=" Имя"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}" />
+                    </Border>
+                </ControlTemplate>
+            </Label.Template>
+        </Label>
+        <Label
+            Content="Имя"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+               Background="#ff64ccf1"
+               Foreground="White"
+            FontSize="20"
+            FontFamily="Segoe UI"
+            FontWeight="Bold"
+            Margin="42,165,0,0"
+            Width="212"
+            Height="52">
+            <Label.Template>
+                <ControlTemplate>
+                    <Border
+                        CornerRadius="10"
+                        Padding="2"
+                        BorderThickness="0"
+                        Background="{TemplateBinding Background}">
+                        <Label
+                            Content="Почта"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}" />
+                    </Border>
+                </ControlTemplate>
+            </Label.Template>
+        </Label>
+        <Button
+            x:Name="one"
+            Content="Назад"
+               Background="#ff64ccf1"
+               Foreground="White"
+            BorderBrush="#567e13"
+            BorderThickness="2"
+            FontSize="16"
+            FontFamily="Segoe UI"
+            FontWeight="Bold"
+            Margin="42,271,567,113"
+            Click="Button_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Border
+                                        x:Name="border"
+                                        BorderThickness="0"
+                                        CornerRadius="5"
+                                        Background="{TemplateBinding Background}" />
+                                    <ContentPresenter
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        x:Name="content"
+                                        Margin="2,2,2,2" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#567e13" />
+                                        <Setter TargetName="content" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#3c550a" />
+                                        <Setter TargetName="border" Property="BorderThickness" Value="3" />
+                                        <Setter TargetName="content" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button
+            x:Name="one_Copy"
+            Content="Создать"
+               Background="#ff64ccf1"
+               Foreground="White"
+            BorderBrush="#567e13"
+            BorderThickness="2"
+            FontSize="16"
+            FontFamily="Segoe UI"
+            FontWeight="Bold"
+            Margin="251,271,358,112"
+            Click="Button_Click_1">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Border
+                                        x:Name="border"
+                                        BorderThickness="0"
+                                        CornerRadius="5"
+                                        Background="{TemplateBinding Background}" />
+                                    <ContentPresenter
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        x:Name="content"
+                                        Margin="2,2,2,2" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#567e13" />
+                                        <Setter TargetName="content" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#3c550a" />
+                                        <Setter TargetName="border" Property="BorderThickness" Value="3" />
+                                        <Setter TargetName="content" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+    </Grid>
+</Window>

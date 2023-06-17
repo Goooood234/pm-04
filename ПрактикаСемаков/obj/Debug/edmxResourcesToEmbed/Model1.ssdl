@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище MEFFLABModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Биоматериал">
+    <Key>
+      <PropertyRef Name="Id_материала" />
+    </Key>
+    <Property Name="Id_материала" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Штрихкод" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ВидМатериала">
+    <Key>
+      <PropertyRef Name="Id_видаМатериала" />
+    </Key>
+    <Property Name="Id_видаМатериала" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Заказ">
+    <Key>
+      <PropertyRef Name="Id_заказа" />
+    </Key>
+    <Property Name="Id_заказа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Штрихкода" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Клиенты">
+    <Key>
+      <PropertyRef Name="Id_Клиента" />
+    </Key>
+    <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id_Клиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Заказа" Type="int" />
+  </EntityType>
+  <EntityType Name="Отдел">
+    <Key>
+      <PropertyRef Name="Id_отдела" />
+    </Key>
+    <Property Name="Id_отдела" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Сотрудники">
+    <Key>
+      <PropertyRef Name="ID_Сотрудника" />
+    </Key>
+    <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Почта" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_Сотрудника" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_отдела" Type="int" Nullable="false" />
+    <Property Name="заблокирован_до" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Услуга">
+    <Key>
+      <PropertyRef Name="Id_Услуги" />
+    </Key>
+    <Property Name="Id_Услуги" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование1" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Штрихкод">
+    <Key>
+      <PropertyRef Name="Id_Штрихкода" />
+    </Key>
+    <Property Name="Id_Штрихкода" Type="int" Nullable="false" />
+    <Property Name="ДатаСоздания" Type="date" Nullable="false" />
+    <Property Name="ВидМатериала" Type="int" Nullable="false" />
+    <Property Name="Id_услуги" Type="int" Nullable="false" />
+    <Property Name="Id_биоматериала" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Заказ_Штрихкод">
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Штрихкод">
+        <PropertyRef Name="Id_Штрихкода" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="Id_Штрихкода" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Клиенты_Заказ">
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="0..1" />
+    <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Заказ">
+        <PropertyRef Name="Id_заказа" />
+      </Principal>
+      <Dependent Role="Клиенты">
+        <PropertyRef Name="Id_Заказа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудники_Отдел">
+    <End Role="Отдел" Type="Self.Отдел" Multiplicity="1" />
+    <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Отдел">
+        <PropertyRef Name="Id_отдела" />
+      </Principal>
+      <Dependent Role="Сотрудники">
+        <PropertyRef Name="Id_отдела" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Штрихкод_Биоматериал">
+    <End Role="Биоматериал" Type="Self.Биоматериал" Multiplicity="1" />
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Биоматериал">
+        <PropertyRef Name="Id_материала" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="Id_биоматериала" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Штрихкод_ВидМатериала">
+    <End Role="ВидМатериала" Type="Self.ВидМатериала" Multiplicity="1" />
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ВидМатериала">
+        <PropertyRef Name="Id_видаМатериала" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="ВидМатериала" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Штрихкод_Услуга">
+    <End Role="Услуга" Type="Self.Услуга" Multiplicity="1" />
+    <End Role="Штрихкод" Type="Self.Штрихкод" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Услуга">
+        <PropertyRef Name="Id_Услуги" />
+      </Principal>
+      <Dependent Role="Штрихкод">
+        <PropertyRef Name="Id_услуги" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище MEFFLABModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Биоматериал" EntityType="Self.Биоматериал" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ВидМатериала" EntityType="Self.ВидМатериала" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Заказ" EntityType="Self.Заказ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Клиенты" EntityType="Self.Клиенты" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Отдел" EntityType="Self.Отдел" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Услуга" EntityType="Self.Услуга" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Штрихкод" EntityType="Self.Штрихкод" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Заказ_Штрихкод" Association="Self.FK_Заказ_Штрихкод">
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Клиенты_Заказ" Association="Self.FK_Клиенты_Заказ">
+      <End Role="Заказ" EntitySet="Заказ" />
+      <End Role="Клиенты" EntitySet="Клиенты" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудники_Отдел" Association="Self.FK_Сотрудники_Отдел">
+      <End Role="Отдел" EntitySet="Отдел" />
+      <End Role="Сотрудники" EntitySet="Сотрудники" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Штрихкод_Биоматериал" Association="Self.FK_Штрихкод_Биоматериал">
+      <End Role="Биоматериал" EntitySet="Биоматериал" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Штрихкод_ВидМатериала" Association="Self.FK_Штрихкод_ВидМатериала">
+      <End Role="ВидМатериала" EntitySet="ВидМатериала" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Штрихкод_Услуга" Association="Self.FK_Штрихкод_Услуга">
+      <End Role="Услуга" EntitySet="Услуга" />
+      <End Role="Штрихкод" EntitySet="Штрихкод" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
